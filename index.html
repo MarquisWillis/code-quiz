@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <span id="highscore-link">View Highscores</span>
+        <span id="timer">Time: <span id="time-left"></span> </span>
+    </header>
+    
+    <section class="start-page-container">
+        <h1>Coding Quiz Challenge</h1>
+        <p>This is a test to elaborate intro concepts into web development learned thus far. When answered question is incorrect, you lose 10 seconds of time. Best of luck!</p>
+        <button class="start-quiz-button button">Start Quiz</button>
+    </section>
+
+    <main class="quiz-container">
+        <h3 class="question"></h3>
+        <ul class="answer-options">
+            <li class="option"> <button class="button"></button> </li>
+            <li class="option"> <button class="button"></button> </li>
+            <li class="option"> <button class="button"></button> </li>
+            <li class="option"> <button class="button"></button> </li>
+        </ul>
+        <!-- answer state will display correct or wrong when question is answered -->
+        <div id="answer-state"></div>
+    </main>
+
+    <section class="highscore-page">
+
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
