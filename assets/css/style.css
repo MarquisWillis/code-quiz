@@ -16,7 +16,6 @@ main, section {
     margin-top: 10vh;
 }
 
-
 .hide {
     display: none;
 }
@@ -25,4 +24,8 @@ main, section {
     background-color: blueviolet;
     color: white;
     border-radius: 5px;
+}
+
+ul {
+    list-style: none;
 }
