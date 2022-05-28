@@ -128,4 +128,9 @@ function nextQuestion() {
 function wrongAnswer() {}
 
 startQuizBtn.addEventListener("click", startQuiz);
+
+answer1El.addEventListener("click", startQuiz);
+answer2El.addEventListener("click", startQuiz);
+answer3El.addEventListener("click", startQuiz);
+answer4El.addEventListener("click", startQuiz);
 //
