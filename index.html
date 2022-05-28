@@ -4,38 +4,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>JavaScript Basics Quiz</title>
+    <link rel="stylesheet" href="./assets/css/jass.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
 
     <header>
-        <span id="highscore-link">View Highscores</span>
-        <span id="timer">Time: <span id="time-left"></span> </span>
+        <span id="highscore-link"> <a href="#highscore-page">View Highscores</a> </span>
+        <span id="timer">Time: <span id="time-left">0</span> </span>
     </header>
     
-    <section class="start-page-container">
+    <section id="start-page-container">
         <h1>Coding Quiz Challenge</h1>
+        <br />
         <p>This is a test to elaborate intro concepts into web development learned thus far. When answered question is incorrect, you lose 10 seconds of time. Best of luck!</p>
-        <button class="start-quiz-button button">Start Quiz</button>
+        <br />
+        <button class="button" id="start-quiz-button">Start Quiz</button>
     </section>
 
-    <main class="quiz-container">
-        <h3 class="question"></h3>
-        <ul class="answer-options">
-            <li class="option"> <button class="button"></button> </li>
-            <li class="option"> <button class="button"></button> </li>
-            <li class="option"> <button class="button"></button> </li>
-            <li class="option"> <button class="button"></button> </li>
+    <main id="quiz-container" class="hide">
+        <h3 id="question">Question 1</h3>
+        <ul id="answer-list">
+            <li> <button class="button option">Answer 1</button> </li>
+            <li> <button class="button option">Answer 2</button> </li>
+            <li> <button class="button option">Answer 3</button> </li>
+            <li> <button class="button option">Answer 4</button> </li>
         </ul>
         <!-- answer state will display correct or wrong when question is answered -->
         <div id="answer-state"></div>
     </main>
 
-    <section class="highscore-page">
-
+    <section id="summary-container" class="hide">
+        <h1>All done!</h1>
+        <p>Your final score is: <span id="score-value"></span> </p>
+        <span>Enter initials: </span> <input type="text" id="init-input">
+        <button id="save-init-score">Save</button>
     </section>
 
-    <script src="script.js"></script>
+    <section id="highscore-page" class="hide">
+        <h1>Highscores</h1>
+        <ol id="score-list">
+        </ol>
+        <button class="button" id="home-page-button">Go Back</button>
+        <button class="button" id="clear-local-scores">Clear Highscores</button>
+    </section>
+
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>

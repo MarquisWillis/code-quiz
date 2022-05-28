@@ -1,0 +1,28 @@
+/*
+buttons are purplish and have border box
+questions displayed are 
+*/
+header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+main, section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vh;
+}
+
+
+.hide {
+    display: none;
+}
+
+.button {
+    background-color: blueviolet;
+    color: white;
+    border-radius: 5px;
+}
