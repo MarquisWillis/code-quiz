@@ -129,7 +129,9 @@ function wrongAnswer() {
   timeLeft -= 15;
 }
 
-// this function states: if the element that was clicked on matches the value paired with the answer key, toggle next question and show correct. otherwise, display wrong and trigger wrongAnswer function
+/* this function states: 
+  - if the element that was clicked on matches the value paired with the answer key, toggle next question and show correct. 
+  - otherwise, display wrong and trigger wrongAnswer function */
 function answerCheck(e) {
   if (e.target === questionSet[index].answer) {
     answerStateEl.textContent = "Correct!"
