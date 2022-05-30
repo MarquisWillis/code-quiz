@@ -16,6 +16,10 @@ main, section {
     margin-top: 10vh;
 }
 
+ul {
+    list-style: none;
+}
+
 .hide {
     display: none;
 }
@@ -26,6 +30,11 @@ main, section {
     border-radius: 5px;
 }
 
-ul {
-    list-style: none;
+.option, #save-init-score {
+    margin: 10px;
+}
+
+#answer-state {
+    color: grey;
+    border-top: 5px solid grey;
 }

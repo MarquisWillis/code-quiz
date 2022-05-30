@@ -1,4 +1,202 @@
-/*
+//container selectors 
+let startPageContainerEl = document.querySelector("#start-page-container");
+let quizContainerEl = document.querySelector("#quiz-container");
+let summaryContainerEl = document.querySelector("#summary-container");
+let highscoreContainerEl = document.querySelector("#highscore-page");
+
+// timer selector and start page start btn selector (for dynamic header and strtpage element selectors)
+let timerEl = document.querySelector("#time-left");
+let startQuizBtn = document.querySelector("#start-quiz-button");
+let scoreLinkEl = document.querySelector("#highscore-link")
+
+// quiz container element selectors
+let questionEl = document.querySelector("#question");
+let answer1El = document.querySelector("#answer-1");
+let answer2El = document.querySelector("#answer-2");
+let answer3El = document.querySelector("#answer-3");
+let answer4El = document.querySelector("#answer-4");
+let answerListEl = [answer1El, answer2El, answer3El, answer4El];
+let answerStateEl = document.querySelector("#answer-state");
+
+// summary container element selectors 
+let scoreValEl = document.querySelector("#score-value");
+let initInput = document.querySelector("#init-input");
+let saveScoreBtn = document.querySelector("#save-init-score");
+
+// highscore page container element selectors
+let scoreListEl = document.querySelector("#score-list");
+let homeBtn = document.querySelector("#home-page-button");
+let clearScoreBtn = document.querySelector("#clear-local-scores");
+
+// local storage getters
+let initial = localStorage.getItem("inital");
+let score = localStorage.getItem("score");
+
+// q&a set for quiz
+const questionSet = [
+  {
+    question: "new question 1",
+    choice1: "answer1",
+    choice2: "answer2",
+    choice3: "answer3",
+    choice4: "answer4",
+    answer: answer1El
+  },
+  {
+    question: "new question 2",
+    choice1: "answer1",
+    choice2: "answer2",
+    choice3: "answer3",
+    choice4: "answer4",
+    answer: answer3El
+  },
+  {
+    question: "new question 3",
+    choice1: "answer1",
+    choice2: "answer2",
+    choice3: "answer3",
+    choice4: "answer4",
+    answer: answer2El
+  },
+  {
+    question: "new question 4",
+    choice1: "answer1",
+    choice2: "answer2",
+    choice3: "answer3",
+    choice4: "answer4",
+    answer: answer4El
+  },
+  {
+    question: "new question 5",
+    choice1: "answer1",
+    choice2: "answer2",
+    choice3: "answer3",
+    choice4: "answer4",
+    answer: answer1El
+  },
+];
+
+// index for questionSet array, timeLeft used for timer, clockid for setInterval
+let index = 0;
+let timeLeft = 75;
+let clockid;
+
+// starts quiz and will use following functions:countDown(), displayQuestion(), nextQuestion(), wrongAnswer()
+function startQuiz() {
+  startPageContainerEl.classList.add("hide");
+  quizContainerEl.classList.remove("hide");
+  clockid = setInterval(countDown, 1000);
+  displayQuestion();
+}
+
+// triggered when startQuiz button is clicked, use for setInterval parameter
+function countDown() {
+  if (timeLeft <= 0 || index > questionSet.length) {
+    clearInterval(clockid)
+    displaySummary();
+  } else {
+    timerEl.textContent = timeLeft;
+    timeLeft--;
+  }
+}
+
+function displayQuestion() {
+  questionEl.textContent = questionSet[index].question
+  answer1El.textContent = questionSet[index].choice1
+  answer2El.textContent = questionSet[index].choice2
+  answer3El.textContent = questionSet[index].choice3
+  answer4El.textContent = questionSet[index].choice4
+}
+
+function nextQuestion() {
+  index++;
+  displayQuestion();
+}
+
+function wrongAnswer() {
+  timeLeft -= 15;
+}
+
+function answerCheck(e) {
+  if (e.target === questionSet[index].answer) {
+    answerStateEl.textContent = "Correct!"
+    nextQuestion();
+  } else {
+    answerStateEl.textContent = "Wrong"
+    wrongAnswer();
+  }
+}
+
+function displaySummary() {
+  answerStateEl.textContent = "";
+  summaryContainerEl.classList.remove("hide");
+  quizContainerEl.classList.add("hide");
+  if (timeLeft < 0) {
+    scoreValEl.innerHTML = timeLeft;
+  } else {
+    timeLeft = 0;
+    scoreValEl.innerHTML = timeLeft;
+  }
+}
+
+
+
+function setStorage() {
+  let scoreListItem = document.createElement("li");
+  let userInput = initInput.val;
+  localStorage.setItem("initial", userInput);
+  localStorage.setItem("score", timeLeft);
+  scoreListItem.innerText = "Initials: " + initial + " Score: " + score;
+  scoreListEl.append(scoreListItem);
+}
+
+function displayHighScores() {
+  startPageContainerEl.classList.add("hide");
+  summaryContainerEl.classList.add("hide");
+  quizContainerEl.classList.add("hide")
+  highscoreContainerEl.classList.remove("hide");
+  answerStateEl.textContent = "";
+  clearInterval(clockid);
+}
+
+// function used for when save button in summary page is clicked (sets storage and adds list item to score list)
+function saveAndSetScore() {
+  setStorage();
+  displayHighScores();
+}
+
+// GOOD
+function goHome() {
+  highscoreContainerEl.classList.add("hide");
+  startPageContainerEl.classList.remove("hide");
+  timeLeft = 75;
+  index = 0;
+}
+
+// find way to remove list items from score list
+function clearStorage() {
+  localStorage.removeItem("initial"); // GOOD
+  localStorage.removeItem("score"); // GOOD
+}
+
+
+scoreLinkEl.addEventListener("click", displayHighScores)
+
+startQuizBtn.addEventListener("click", startQuiz);
+
+answer1El.addEventListener("click", answerCheck);
+answer2El.addEventListener("click", answerCheck);
+answer3El.addEventListener("click", answerCheck);
+answer4El.addEventListener("click", answerCheck);
+
+saveScoreBtn.addEventListener("click", saveAndSetScore);
+
+homeBtn.addEventListener("click", goHome);
+clearScoreBtn.addEventListener("click", clearStorage);
+
+
+
+/* PSUEDO-CODE
 functions to write in this file:
 - start quiz button function (controls initiation of quiz and timer) {event listener for start button}
 - when current displayed question is answered, go to next question {event listener for answer response}
@@ -45,92 +243,3 @@ variables to include:
 - array of object literals to hold questions, answers and whether or not answer is correct (create in js, add to innerHTML for each next question)
 - 
 */
-
-//container selectors 
-let startPageContainerEl = document.querySelector("#start-page-container");
-let quizContainerEl = document.querySelector("#quiz-container"); 
-let summaryContainerEl = document.querySelector("#summary-container"); 
-let highscoreContainerEl = document.querySelector("#highscore-page"); 
-
-// static selectors for functional use
-let timerEl = document.querySelector("#time-left");
-let startQuizBtn = document.querySelector("#start-quiz-button");
-let questionEl = document.querySelector("#question");
-let answer1El = document.querySelector("#answer-1");
-let answer2El = document.querySelector("#answer-2");
-let answer3El = document.querySelector("#answer-3");
-let answer4El = document.querySelector("#answer-4");
-let answerStateEl = document.querySelector("#answer-state");
-let scoreValEl = document.querySelector("#score-value");
-let initInput = document.querySelector("#init-input");
-let saveScoreBtn = document.querySelector("#save-init-score");
-let scoreListEl = document.querySelector("#score-list");
-let homeBtn = document.querySelector("#home-page-button");
-let clearScoreBtn = document.querySelector("#clear-local-scores");
-
-
-let questionSet = [
-  {
-  title:"new question 1",
-  answers:["answer1","answer2","answer3","answer4"],
-  solution: "answer2"
-  }, {
-  title:"new question 2",
-  answers:["answer1","answer2","answer3","answer4"],
-  solution: "answer2"
-  }, {
-  title:"new question 3",
-  answers:["answer1","answer2","answer3","answer4"],
-  solution: "answer2"
-  }, {
-  title:"new question 4",
-  answers:["answer1","answer2","answer3","answer4"],
-  solution: "answer2"
-  }, {
-  title:"new question 5",
-  answers:["answer1","answer2","answer3","answer4"],
-  solution: "answer2"
-  }
-];
-
-// index for questionSet array, timeLeft used for timer
-let index = 0;
-let timeLeft = 75;
-var clockid;
-
-// starts quiz and will use following functions:countDown(), displayQuestion(), nextQuestion(), wrongAnswer()
-function startQuiz() {
-  startPageContainerEl.classList.add("hide");
-  quizContainerEl.classList.remove("hide");
-  clockid = setInterval(countDown, 1000);
-  displayQuestion();
-}
-
-// triggered when startQuiz button is clicked, use for setInterval parameter
-function countDown () {
-  timerEl.textContent=timeLeft;
-  timeLeft--;
-}
-
-function displayQuestion() {
-  questionEl.textContent=questionSet[index].title
-  answer1El.textContent=questionSet[index].answers[0]
-  answer2El.textContent=questionSet[index].answers[1]
-  answer3El.textContent=questionSet[index].answers[2]
-  answer4El.textContent=questionSet[index].answers[3]
-}
-
-function nextQuestion() {
-  index++
-  displayQuestion();
-}
-// when answer is wrong, subtract 15 seconds and repeat question (re-call the displayQuestion function)
-function wrongAnswer() {}
-
-startQuizBtn.addEventListener("click", startQuiz);
-
-answer1El.addEventListener("click", startQuiz);
-answer2El.addEventListener("click", startQuiz);
-answer3El.addEventListener("click", startQuiz);
-answer4El.addEventListener("click", startQuiz);
-//
