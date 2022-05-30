@@ -89,24 +89,27 @@ function startQuiz() {
   displayQuestion();
 }
 
-// triggered when startQuiz button is clicked, use for setInterval parameter DONE
+/* triggered when startQuiz button is clicked, used for setInterval parameter
+  function toggles timer off and on depending on such conditions:
+    - if time is <=0 and the questionSet is incomplete, clear timer, timeLeft is now assigned 0, and displaySummary is called
+    - otherwise if the questionSet at current index is undefined (ie index >= questionSet length), clear timer and displaySummary
+    - otherwise, run timer 
+*/
 function countDown() {
-  if (timeLeft <= 0 && index < questionSet.length) {
+  if (timeLeft <= 0 && index < questionSet.length - 1) {
     clearInterval(clockid)
     timeLeft = 0;
+    displaySummary();
+  } else if (questionSet[index] === undefined) {
+    clearInterval(clockid);
     displaySummary();
   } else {
     timerEl.textContent = timeLeft;
     timeLeft--;
   }
-
-  if (questionSet[index] === undefined) {
-    clearInterval(clockid);
-    displaySummary();
-  }
 }
 
-// GOOD
+// function to display appropriate questions and answers according to questionSet index
 function displayQuestion() {
   questionEl.textContent = questionSet[index].question
   answer1El.textContent = questionSet[index].choice1
@@ -115,18 +118,18 @@ function displayQuestion() {
   answer4El.textContent = questionSet[index].choice4
 }
 
-// GOOD
+// 1 of 2 functions used in answerCheck (toggles next question to display)
 function nextQuestion() {
   index++;
   displayQuestion();
 }
 
-// GOOD
+// 2 of 2 functions used in answerCheck (if answer incorrect, subtract 15s from timer)
 function wrongAnswer() {
   timeLeft -= 15;
 }
 
-// GOOD
+// this function states: if the element that was clicked on matches the value paired with the answer key, toggle next question and show correct. otherwise, display wrong and trigger wrongAnswer function
 function answerCheck(e) {
   if (e.target === questionSet[index].answer) {
     answerStateEl.textContent = "Correct!"
@@ -137,16 +140,17 @@ function answerCheck(e) {
   }
 }
 
-// GOOD
+// resets dynamic text elements answerState and timer to default, and assigns the scoreVal element to the time left at the end of the quiz
 function displaySummary() {
   answerStateEl.textContent = "";
   summaryContainerEl.classList.remove("hide");
   quizContainerEl.classList.add("hide");
   scoreValEl.textContent = timeLeft;
+  timerEl.textContent = 0;
 }
 
 let scoreboardCounter = 1;
-// GOOD
+// creates the list item for initials and score after quiz and appends list item to the scoreList element (also sets localStorage items)
 function setStorage() {
   let scoreListItem = document.createElement("li")
 
@@ -157,10 +161,10 @@ function setStorage() {
   localStorage.setItem("score", scoreVal);
   scoreListItem.innerText = scoreboardCounter + ". Initials: " + initVal + "\n  Score: " + scoreVal;
   scoreListEl.append(scoreListItem);
-  scoreboardCounter++;
+  scoreboardCounter++; // increments number output for highscore list
 }
 
-// GOOD
+// when function needs to be called (from any section), applies hide class to all sections except highscore page to prevent bugs. also clears timer
 function displayHighScores() {
   startPageContainerEl.classList.add("hide");
   summaryContainerEl.classList.add("hide");
@@ -176,7 +180,7 @@ function saveAndSetScore() {
   displayHighScores();
 }
 
-// GOOD
+// function called to go back to start page and reset quiz parameter defaults (timer and q&a set index)
 function goHome() {
   highscoreContainerEl.classList.add("hide");
   startPageContainerEl.classList.remove("hide");
@@ -184,7 +188,7 @@ function goHome() {
   index = 0;
 }
 
-// find way to remove list items from score list FIXED
+// removes list items from score list, resets scoreboard counter, and clears local Storage items
 function clearStorage() {
   localStorage.removeItem("initial"); // GOOD
   localStorage.removeItem("score"); // GOOD
@@ -193,6 +197,7 @@ function clearStorage() {
 }
 
 
+// add event listeners for interactive HTML elements when clicked upon
 scoreLinkEl.addEventListener("click", displayHighScores)
 
 startQuizBtn.addEventListener("click", startQuiz);
