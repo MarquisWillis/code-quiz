@@ -89,17 +89,24 @@ function startQuiz() {
   displayQuestion();
 }
 
-// triggered when startQuiz button is clicked, use for setInterval parameter
+// triggered when startQuiz button is clicked, use for setInterval parameter DONE
 function countDown() {
-  if (timeLeft <= 0 || index > questionSet.length) {
+  if (timeLeft <= 0 && index < questionSet.length) {
     clearInterval(clockid)
+    timeLeft = 0;
     displaySummary();
   } else {
     timerEl.textContent = timeLeft;
     timeLeft--;
   }
+
+  if (questionSet[index] === undefined) {
+    clearInterval(clockid);
+    displaySummary();
+  }
 }
 
+// GOOD
 function displayQuestion() {
   questionEl.textContent = questionSet[index].question
   answer1El.textContent = questionSet[index].choice1
@@ -108,15 +115,18 @@ function displayQuestion() {
   answer4El.textContent = questionSet[index].choice4
 }
 
+// GOOD
 function nextQuestion() {
   index++;
   displayQuestion();
 }
 
+// GOOD
 function wrongAnswer() {
   timeLeft -= 15;
 }
 
+// GOOD
 function answerCheck(e) {
   if (e.target === questionSet[index].answer) {
     answerStateEl.textContent = "Correct!"
@@ -127,29 +137,29 @@ function answerCheck(e) {
   }
 }
 
+// GOOD
 function displaySummary() {
   answerStateEl.textContent = "";
   summaryContainerEl.classList.remove("hide");
   quizContainerEl.classList.add("hide");
-  if (timeLeft < 0) {
-    scoreValEl.innerHTML = timeLeft;
-  } else {
-    timeLeft = 0;
-    scoreValEl.innerHTML = timeLeft;
-  }
+  scoreValEl.textContent = timeLeft;
 }
 
 
-
+// GOOD
 function setStorage() {
-  let scoreListItem = document.createElement("li");
-  let userInput = initInput.val;
-  localStorage.setItem("initial", userInput);
-  localStorage.setItem("score", timeLeft);
-  scoreListItem.innerText = "Initials: " + initial + " Score: " + score;
+  let scoreListItem = document.createElement("li")
+
+  let scoreVal = scoreValEl.textContent;
+  let initVal = initInput.value;
+
+  localStorage.setItem("initial", initVal);
+  localStorage.setItem("score", scoreVal);
+  scoreListItem.innerText = "Initials: " + initVal + " Score: " + scoreVal;
   scoreListEl.append(scoreListItem);
 }
 
+// GOOD
 function displayHighScores() {
   startPageContainerEl.classList.add("hide");
   summaryContainerEl.classList.add("hide");
@@ -159,7 +169,7 @@ function displayHighScores() {
   clearInterval(clockid);
 }
 
-// function used for when save button in summary page is clicked (sets storage and adds list item to score list)
+// function used for when save button in summary page is clicked (sets storage and adds list item to score list) GOOD
 function saveAndSetScore() {
   setStorage();
   displayHighScores();
@@ -173,10 +183,11 @@ function goHome() {
   index = 0;
 }
 
-// find way to remove list items from score list
+// find way to remove list items from score list FIXED
 function clearStorage() {
   localStorage.removeItem("initial"); // GOOD
   localStorage.removeItem("score"); // GOOD
+  scoreListEl.textContent = "";
 }
 
 
