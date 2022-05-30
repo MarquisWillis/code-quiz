@@ -35,43 +35,43 @@ let score = localStorage.getItem("score");
 // q&a set for quiz
 const questionSet = [
   {
-    question: "new question 1",
-    choice1: "answer1",
-    choice2: "answer2",
-    choice3: "answer3",
-    choice4: "answer4",
+    question: "What denotes a code block in JavaScript?",
+    choice1: "'{}'",
+    choice2: "'[]'",
+    choice3: "'()'",
+    choice4: "'||'",
     answer: answer1El
   },
   {
-    question: "new question 2",
-    choice1: "answer1",
-    choice2: "answer2",
-    choice3: "answer3",
-    choice4: "answer4",
+    question: "What is the purpose of static selectors in JavaScript?",
+    choice1: "Because it looks pretty neat",
+    choice2: "Because we like to torture ourselves with JavaScript (jk JS cool)",
+    choice3: "To add unique funtionality to elements on the page and user interaction",
+    choice4: "To perform backend operations",
     answer: answer3El
   },
   {
-    question: "new question 3",
-    choice1: "answer1",
-    choice2: "answer2",
-    choice3: "answer3",
-    choice4: "answer4",
+    question: "What is the increment/decrement operator in JavaScript?",
+    choice1: " === ",
+    choice2: " i++/i-- ",
+    choice3: " !== ",
+    choice4: " &&/|| ",
     answer: answer2El
   },
   {
-    question: "new question 4",
-    choice1: "answer1",
-    choice2: "answer2",
-    choice3: "answer3",
-    choice4: "answer4",
+    question: "What do we use to only run code if certain conditions are met?",
+    choice1: "for loop",
+    choice2: "while loop",
+    choice3: "function",
+    choice4: "if/else statements",
     answer: answer4El
   },
   {
-    question: "new question 5",
-    choice1: "answer1",
-    choice2: "answer2",
-    choice3: "answer3",
-    choice4: "answer4",
+    question: "How are objects defined in JavaScript?",
+    choice1: "key-value pairs",
+    choice2: "single data assignment",
+    choice3: "point to memory",
+    choice4: "console.log()",
     answer: answer1El
   },
 ];
@@ -145,7 +145,7 @@ function displaySummary() {
   scoreValEl.textContent = timeLeft;
 }
 
-
+let scoreboardCounter = 1;
 // GOOD
 function setStorage() {
   let scoreListItem = document.createElement("li")
@@ -155,8 +155,9 @@ function setStorage() {
 
   localStorage.setItem("initial", initVal);
   localStorage.setItem("score", scoreVal);
-  scoreListItem.innerText = "Initials: " + initVal + " Score: " + scoreVal;
+  scoreListItem.innerText = scoreboardCounter + ". Initials: " + initVal + "\n  Score: " + scoreVal;
   scoreListEl.append(scoreListItem);
+  scoreboardCounter++;
 }
 
 // GOOD
@@ -188,6 +189,7 @@ function clearStorage() {
   localStorage.removeItem("initial"); // GOOD
   localStorage.removeItem("score"); // GOOD
   scoreListEl.textContent = "";
+  scoreboardCounter = 1;
 }
 
 

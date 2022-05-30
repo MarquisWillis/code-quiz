@@ -28,6 +28,7 @@ ul {
     background-color: blueviolet;
     color: white;
     border-radius: 5px;
+    margin-top: 30px;
 }
 
 .option, #save-init-score {
@@ -37,4 +38,22 @@ ul {
 #answer-state {
     color: grey;
     border-top: 5px solid grey;
+}
+
+#scoreboard {
+    background-color: lightgrey;
+    border-radius: 10px;
+    padding-right: 30px;
+    display: flex
+}
+
+
+
+#scoreboard ol li {
+    list-style: none;
+    justify-content: center;
+    border-color: black;
+    border-style: dashed;
+    margin-top: 15px;
+    font-family: monospace;
 }
