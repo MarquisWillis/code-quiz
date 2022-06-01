@@ -100,7 +100,7 @@ function countDown() {
     clearInterval(clockid)
     timeLeft = 0;
     displaySummary();
-  } else if (questionSet[index] === undefined) {
+  } else if (questionSet.length === index) { // questionSet.length === index
     clearInterval(clockid);
     displaySummary();
   } else {
@@ -132,8 +132,9 @@ function wrongAnswer() {
 /* this function states: 
   - if the element that was clicked on matches the value paired with the answer key, toggle next question and show correct. 
   - otherwise, display wrong and trigger wrongAnswer function */
-function answerCheck(e) {
-  if (e.target === questionSet[index].answer) {
+function answerCheck(event) {
+  console.log(event);
+  if (event.target === questionSet[index].answer) {
     answerStateEl.textContent = "Correct!"
     nextQuestion();
   } else {
@@ -192,8 +193,8 @@ function goHome() {
 
 // removes list items from score list, resets scoreboard counter, and clears local Storage items
 function clearStorage() {
-  localStorage.removeItem("initial"); // GOOD
-  localStorage.removeItem("score"); // GOOD
+  localStorage.removeItem("initial"); 
+  localStorage.removeItem("score"); 
   scoreListEl.textContent = "";
   scoreboardCounter = 1;
 }

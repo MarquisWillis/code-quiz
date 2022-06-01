@@ -4,6 +4,8 @@
 
 This project used vanilla Javascript to build a functioning quiz application. This project is useful in exercising the JavaScript fundamentals for baseline application production, and demonstrates the value of using localStorage and the power that JS can offer to a website in terms of functionality and interaction of the user.
 
+Link to deplayed application: https://marquiswillis.github.io/code-quiz/
+
 ## Usage
 
 - When the user clicks the start quiz button, a series of questions and answer buttons display, starting the quiz and timer.
