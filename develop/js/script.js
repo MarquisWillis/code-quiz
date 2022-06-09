@@ -92,7 +92,7 @@ function startQuiz() {
 /* triggered when startQuiz button is clicked, used for setInterval parameter
   function toggles timer off and on depending on such conditions:
     - if time is <=0 and the questionSet is incomplete, clear timer, timeLeft is now assigned 0, and displaySummary is called
-    - otherwise if the questionSet at current index is undefined (ie index >= questionSet length), clear timer and displaySummary
+    - otherwise if the questionSet at current index is equal to the q&a length, clear timer and displaySummary
     - otherwise, run timer 
 */
 function countDown() {
@@ -133,7 +133,6 @@ function wrongAnswer() {
   - if the element that was clicked on matches the value paired with the answer key, toggle next question and show correct. 
   - otherwise, display wrong and trigger wrongAnswer function */
 function answerCheck(event) {
-  console.log(event);
   if (event.target === questionSet[index].answer) {
     answerStateEl.textContent = "Correct!"
     nextQuestion();
